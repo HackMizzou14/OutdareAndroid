@@ -73,8 +73,8 @@ public class LoginActivity extends Activity {
                 Intent dareIntent = new Intent(getApplicationContext(), DareActivity.class);
 
                 Bundle bundle = new Bundle();
-                bundle.putString("username", user.getUsername());
-                dareIntent.putExtra("user", bundle);
+                bundle.putString(DareActivity.USERNAME_KEY, user.getUsername());
+                dareIntent.putExtra(DareActivity.USER_KEY, bundle);
 
                 startActivity(dareIntent);
                 finish();
