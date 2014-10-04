@@ -1,9 +1,12 @@
 package me.outdare.outdare.dares;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
@@ -74,5 +77,29 @@ public class DaresActivity extends Activity implements GooglePlayServicesClient.
 
     @Override
     public void onDisconnected() {
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.dares_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.menu_dares_new_dare) {
+            Intent intent = new Intent(this, DareActivity.class);
+
+            Bundle bundle = new Bundle();
+            bundle.putString(currentUser, DareActivity.USERNAME_KEY);
+
+            intent.putExtra(DareActivity.USER_KEY, bundle);
+
+            startActivity(intent);
+            return true;
+        }
+
+        return false;
     }
 }
