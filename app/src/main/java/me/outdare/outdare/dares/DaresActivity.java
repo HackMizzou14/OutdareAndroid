@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -19,6 +20,7 @@ import me.outdare.outdare.R;
 import me.outdare.outdare.dare.Dare;
 import me.outdare.outdare.dare.DareActivity;
 import me.outdare.outdare.services.OutdareService;
+import me.outdare.outdare.submissions.SubmissionsActivity;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -50,6 +52,24 @@ public class DaresActivity extends Activity implements GooglePlayServicesClient.
         adapter = new DaresAdapter(this, android.R.layout.simple_list_item_1);
         lvDares.setAdapter(adapter);
 
+        lvDares.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Dare dare = adapter.getItem(position);
+
+                Log.e("TAG", "" + dare.getId());
+
+                Intent intent = new Intent(getApplicationContext(), SubmissionsActivity.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(SubmissionsActivity.DARE_KEY, dare);
+
+                intent.putExtra(SubmissionsActivity.DARE_KEY, bundle);
+
+                startActivity(intent);
+            }
+        });
+
         mLocationClient = new LocationClient(this, this, null);
         mLocationClient.connect();
 
@@ -62,7 +82,7 @@ public class DaresActivity extends Activity implements GooglePlayServicesClient.
         double latitude = currentLocation.getLatitude();
         double longitude = currentLocation.getLongitude();
 
-        outdareService.getDares(currentUser, latitude, longitude, new Callback<List<Dare>>() {
+        outdareService.getDares(latitude, longitude, new Callback<List<Dare>>() {
             @Override
             public void success(List<Dare> dares, Response response) {
                 adapter.addAll(dares);

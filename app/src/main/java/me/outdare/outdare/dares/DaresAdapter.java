@@ -34,7 +34,7 @@ public class DaresAdapter extends ArrayAdapter<Dare> {
         }
 
         Dare dare = getItem(position);
-        view.tvDare.setText(dare.getDare());
+        view.tvDare.setText(dare.getTitle());
 
         return convertView;
     }

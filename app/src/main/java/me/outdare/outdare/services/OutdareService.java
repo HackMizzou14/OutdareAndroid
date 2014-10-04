@@ -3,12 +3,14 @@ package me.outdare.outdare.services;
 import java.util.List;
 
 import me.outdare.outdare.dare.Dare;
+import me.outdare.outdare.dares.Submission;
 import me.outdare.outdare.login.User;
 import retrofit.Callback;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.Path;
 import retrofit.http.Query;
 
 public interface OutdareService {
@@ -35,8 +37,12 @@ public interface OutdareService {
                     Callback<Dare> callback);
 
     @GET("/dares/")
-    void getDares(@Query("user") String user,
-                  @Query("latitude") double latitude,
+    void getDares(@Query("latitude") double latitude,
                   @Query("longitude") double longitude,
                   Callback<List<Dare>> callback);
+
+    @GET("/dares/{id}/submissions/")
+    void getSubmissions(@Path("id") int dareId,
+                        Callback<List<Submission>> callback);
+
 }
