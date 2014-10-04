@@ -19,6 +19,8 @@
     <EditText
         android:id="@+id/dare_et_dare"
         android:layout_width="match_parent"
+        android:inputType="textMultiLine"
+        android:gravity="top|left"
         android:lines="10"
         android:layout_height="wrap_content" />
 
