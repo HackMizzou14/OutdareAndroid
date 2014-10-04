@@ -15,30 +15,29 @@ import retrofit.http.Query;
 
 public interface OutdareService {
     @FormUrlEncoded
-    @POST("/login.php")
+    @POST("/login")
     void login(@Field("user") String user,
-               @Field("password") String password,
                Callback<User> callback);
 
     @FormUrlEncoded
-    @POST("/createUser.php")
+    @POST("/createUser")
     void createUser(@Field("user") String user,
-                    @Field("password") String password,
                     @Field("email") String email,
                     @Field("phone") String phone,
                     Callback<User> callback);
 
     @FormUrlEncoded
-    @POST("/dares/create.php")
-    void createDare(@Field("activity_dare") String dare,
-                    @Field("challenger") String challenger,
-                    @Field("latitude") double latitude,
-                    @Field("longitude") double longitude,
+    @POST("/dares/create")
+    void createDare(@Field("title") String title,
+                    @Field("details") String details,
+                    @Field("user_id") String userId,
+                    @Field("lat") double lat,
+                    @Field("lon") double lon,
                     Callback<Dare> callback);
 
     @GET("/dares/")
-    void getDares(@Query("latitude") double latitude,
-                  @Query("longitude") double longitude,
+    void getDares(@Query("lat") double latitude,
+                  @Query("lon") double longitude,
                   Callback<List<Dare>> callback);
 
     @GET("/dares/{id}/submissions/")

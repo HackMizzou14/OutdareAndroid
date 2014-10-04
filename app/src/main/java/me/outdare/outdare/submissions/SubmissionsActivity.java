@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import me.outdare.outdare.ODConstants;
 import me.outdare.outdare.R;
 import me.outdare.outdare.dare.Dare;
 import me.outdare.outdare.dares.Submission;
@@ -41,7 +42,7 @@ public class SubmissionsActivity extends Activity implements DownloadImageTask.I
         Bundle inBundle = getIntent().getExtras().getBundle(DARE_KEY);
         dare = (Dare) inBundle.getParcelable(DARE_KEY);
 
-        RestAdapter loginAdapter = new RestAdapter.Builder().setEndpoint("http://outdare.me").build();
+        RestAdapter loginAdapter = new RestAdapter.Builder().setEndpoint(ODConstants.SERVER).build();
         outdareService = loginAdapter.create(OutdareService.class);
 
         view = getLayoutInflater().inflate(R.layout.activity_submissions, null);

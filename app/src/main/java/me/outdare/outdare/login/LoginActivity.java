@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import me.outdare.outdare.ODConstants;
 import me.outdare.outdare.R;
-import me.outdare.outdare.dare.DareActivity;
 import me.outdare.outdare.dares.DaresActivity;
 import me.outdare.outdare.register.RegisterActivity;
 import me.outdare.outdare.services.OutdareService;
@@ -32,7 +32,7 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        RestAdapter loginAdapter = new RestAdapter.Builder().setEndpoint("http://outdare.me").build();
+        RestAdapter loginAdapter = new RestAdapter.Builder().setEndpoint(ODConstants.SERVER).build();
         outdareService = loginAdapter.create(OutdareService.class);
 
         view = getLayoutInflater().inflate(R.layout.activity_login, null);
@@ -66,16 +66,15 @@ public class LoginActivity extends Activity {
 
     private void submitCredentials() {
         String user = etUser.getText().toString();
-        String password = etUser.getText().toString();
 
-        outdareService.login(user, password, new Callback<User>() {
+        outdareService.login(user, new Callback<User>() {
             @Override
             public void success(User user, Response response) {
                 Intent dareIntent = new Intent(getApplicationContext(), DaresActivity.class);
 
                 Bundle bundle = new Bundle();
-                bundle.putString(DareActivity.USERNAME_KEY, user.getUsername());
-                dareIntent.putExtra(DareActivity.USER_KEY, bundle);
+                bundle.putString(ODConstants.USER_KEY, user.getUser());
+                dareIntent.putExtra(ODConstants.BUNDLE_KEY, bundle);
 
                 startActivity(dareIntent);
                 finish();
@@ -83,7 +82,7 @@ public class LoginActivity extends Activity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e("FAIL", error.toString());
+                Log.e("LoginActivity", error.toString());
             }
         });
     }

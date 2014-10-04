@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         style="@style/default_edittext"
-        android:hint="username"
+        android:hint="user"
         android:background="@drawable/edittext_background"
         android:layout_marginBottom="10dp" />
 

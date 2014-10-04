@@ -11,14 +11,29 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:text="Submit a title:"
+        android:text="Title:"
         style="@style/default_textview"
         android:layout_marginBottom="8dp"
         android:textSize="20sp"
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/dare_et_dare"
+        android:id="@+id/dare_et_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:padding="5dp"
+        style="@style/default_edittext" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Details:"
+        android:textSize="20sp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/dare_et_details"
         android:layout_width="match_parent"
         android:inputType="textMultiLine"
         android:gravity="top|left"
@@ -26,7 +41,7 @@
         android:lines="10"
         android:layout_marginBottom="10dp"
         android:padding="5dp"
-        android:hint="I title you to..."
+        android:hint="I dare you to..."
         android:layout_height="wrap_content" />
 
     <Button

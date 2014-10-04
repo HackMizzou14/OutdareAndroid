@@ -1,14 +1,16 @@
 package me.outdare.outdare.register;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import me.outdare.outdare.ODConstants;
 import me.outdare.outdare.R;
+import me.outdare.outdare.dares.DaresActivity;
 import me.outdare.outdare.login.User;
 import me.outdare.outdare.services.OutdareService;
 import retrofit.Callback;
@@ -31,7 +33,7 @@ public class RegisterActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        RestAdapter loginAdapter = new RestAdapter.Builder().setEndpoint("http://outdare.me").build();
+        RestAdapter loginAdapter = new RestAdapter.Builder().setEndpoint(ODConstants.SERVER).build();
         outdareService = loginAdapter.create(OutdareService.class);
 
         view = getLayoutInflater().inflate(R.layout.activity_register, null);
@@ -57,11 +59,17 @@ public class RegisterActivity extends Activity {
         String email = etEmail.getText().toString();
         String phone = etPhone.getText().toString();
 
-        outdareService.createUser(username, password, email, phone, new Callback<User>() {
+        outdareService.createUser(username, email, phone, new Callback<User>() {
             @Override
             public void success(User user, Response response) {
-                // TODO open DareActivity
-                Toast.makeText(getApplicationContext(), user.getUsername(), Toast.LENGTH_LONG).show();
+                Intent dareIntent = new Intent(getApplicationContext(), DaresActivity.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putString(ODConstants.USER_KEY, user.getUser());
+                dareIntent.putExtra(ODConstants.BUNDLE_KEY, bundle);
+
+                startActivity(dareIntent);
+                finish();
             }
 
             @Override

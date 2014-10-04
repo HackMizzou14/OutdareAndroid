@@ -16,6 +16,7 @@ import com.google.android.gms.location.LocationClient;
 
 import java.util.List;
 
+import me.outdare.outdare.ODConstants;
 import me.outdare.outdare.R;
 import me.outdare.outdare.dare.Dare;
 import me.outdare.outdare.dare.DareActivity;
@@ -40,10 +41,10 @@ public class DaresActivity extends Activity implements GooglePlayServicesClient.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle inBundle = getIntent().getExtras().getBundle(DareActivity.USER_KEY);
-        currentUser = inBundle.getString(DareActivity.USERNAME_KEY);
+        Bundle inBundle = getIntent().getExtras().getBundle(ODConstants.BUNDLE_KEY);
+        currentUser = inBundle.getString(ODConstants.USER_KEY);
 
-        RestAdapter loginAdapter = new RestAdapter.Builder().setEndpoint("http://outdare.me").build();
+        RestAdapter loginAdapter = new RestAdapter.Builder().setEndpoint(ODConstants.SERVER).build();
         outdareService = loginAdapter.create(OutdareService.class);
 
         view = getLayoutInflater().inflate(R.layout.activity_dares, null);
@@ -56,8 +57,6 @@ public class DaresActivity extends Activity implements GooglePlayServicesClient.
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Dare dare = adapter.getItem(position);
-
-                Log.e("TAG", "" + dare.getId());
 
                 Intent intent = new Intent(getApplicationContext(), SubmissionsActivity.class);
 
@@ -112,9 +111,9 @@ public class DaresActivity extends Activity implements GooglePlayServicesClient.
             Intent intent = new Intent(this, DareActivity.class);
 
             Bundle bundle = new Bundle();
-            bundle.putString(currentUser, DareActivity.USERNAME_KEY);
+            bundle.putString(currentUser, ODConstants.USER_KEY);
 
-            intent.putExtra(DareActivity.USER_KEY, bundle);
+            intent.putExtra(ODConstants.BUNDLE_KEY, bundle);
 
             startActivity(intent);
             return true;

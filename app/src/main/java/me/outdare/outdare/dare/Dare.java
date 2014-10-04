@@ -6,16 +6,16 @@ import android.os.Parcelable;
 public class Dare implements Parcelable {
     private int id;
     private String title;
-    private String challenger;
-    private double latitude;
-    private double longitude;
+    private String userId;
+    private double lat;
+    private double lon;
 
-    public Dare(int id, String dare, String challenger, double latitude, double longitude) {
+    public Dare(int id, String dare, String userId, double lat, double lon) {
         this.id = id;
         this.title = dare;
-        this.challenger = challenger;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.userId = userId;
+        this.lat = lat;
+        this.lon = lon;
     }
 
     public int getId() {
@@ -34,28 +34,28 @@ public class Dare implements Parcelable {
         this.title = title;
     }
 
-    public String getChallenger() {
-        return challenger;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setChallenger(String challenger) {
-        this.challenger = challenger;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public double getLatitude() {
-        return latitude;
+    public double getLat() {
+        return lat;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public void setLat(double lat) {
+        this.lat = lat;
     }
 
-    public double getLongitude() {
-        return longitude;
+    public double getLon() {
+        return lon;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 
     @Override
@@ -67,9 +67,9 @@ public class Dare implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(title);
-        dest.writeString(challenger);
-        dest.writeDouble(latitude);
-        dest.writeDouble(longitude);
+        dest.writeString(userId);
+        dest.writeDouble(lat);
+        dest.writeDouble(lon);
     }
 
     public static final Creator CREATOR = new Creator<Dare>() {

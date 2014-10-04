@@ -4,12 +4,12 @@ import android.graphics.Bitmap;
 
 public class Submission {
     private int id;
-    private String submitter;
+    private String userId;
     private Bitmap image;
 
-    public Submission(int id, String submitter) {
+    public Submission(int id, String userId) {
         this.id = id;
-        this.submitter = submitter;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -20,12 +20,12 @@ public class Submission {
         this.id = id;
     }
 
-    public String getSubmitter() {
-        return submitter;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setSubmitter(String submitter) {
-        this.submitter = submitter;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public Bitmap getImage() {

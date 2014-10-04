@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 
+import me.outdare.outdare.ODConstants;
 import me.outdare.outdare.R;
 import me.outdare.outdare.services.OutdareService;
 import retrofit.Callback;
@@ -22,15 +23,14 @@ import retrofit.client.Response;
 
 public class DareActivity extends Activity implements GooglePlayServicesClient.ConnectionCallbacks {
 
-    public static final String USER_KEY = "user_key";
-    public static final String USERNAME_KEY = "username_key";
-
     private View view;
-    private EditText etDare;
+    private EditText etTitle;
+    private EditText etDetails;
+
     private Button btnSubmit;
     private LocationClient mLocationClient;
 
-    private String currUser;
+    private String userId;
 
     private boolean isConnected = false;
     private OutdareService outdareService;
@@ -39,14 +39,15 @@ public class DareActivity extends Activity implements GooglePlayServicesClient.C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        RestAdapter loginAdapter = new RestAdapter.Builder().setEndpoint("http://outdare.me").build();
+        RestAdapter loginAdapter = new RestAdapter.Builder().setEndpoint(ODConstants.SERVER).build();
         outdareService = loginAdapter.create(OutdareService.class);
 
-        Bundle inBundle = getIntent().getExtras().getBundle(USER_KEY);
-        currUser = inBundle.getString(USERNAME_KEY);
+        Bundle inBundle = getIntent().getExtras().getBundle(ODConstants.BUNDLE_KEY);
+        userId = inBundle.getString(ODConstants.USER_KEY);
 
         view = getLayoutInflater().inflate(R.layout.activity_dare, null);
-        etDare = (EditText) view.findViewById(R.id.dare_et_dare);
+        etTitle = (EditText) view.findViewById(R.id.dare_et_title);
+        etDetails = (EditText) view.findViewById(R.id.dare_et_details);
         btnSubmit = (Button) view.findViewById(R.id.dare_btn_submit);
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -70,12 +71,15 @@ public class DareActivity extends Activity implements GooglePlayServicesClient.C
         }
 
         Location location = mLocationClient.getLastLocation();
-        String dare = etDare.getText().toString();
+        double lat = location.getLatitude();
+        double lon = location.getLongitude();
+        String title = etTitle.getText().toString();
+        String details = etDetails.getText().toString();
 
-        outdareService.createDare(dare, currUser, location.getLatitude(), location.getLongitude(), new Callback<Dare>() {
+        outdareService.createDare(title, details, userId, lat, lon, new Callback<Dare>() {
             @Override
             public void success(Dare dare, Response response) {
-                etDare.setText("");
+                etTitle.setText("");
                 Toast.makeText(getApplicationContext(), "Dare submitted successfully.", Toast.LENGTH_LONG).show();
             }
 
