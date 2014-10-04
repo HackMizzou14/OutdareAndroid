@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@drawable/stardust_drawable"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -24,12 +23,14 @@
         style="@style/default_edittext"
         android:gravity="top|left"
         android:lines="10"
+        android:layout_marginBottom="10dp"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/dare_btn_submit"
         android:layout_width="wrap_content"
         android:text="Submit"
+        style="@style/default_button"
         android:layout_height="wrap_content" />
 
 </LinearLayout>
