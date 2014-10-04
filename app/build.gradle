@@ -20,7 +20,11 @@ android {
 }
 
 dependencies {
-    compile 'com.squareup.retrofit:retrofit:1.6.1'
+    compile('com.squareup.retrofit:retrofit:1.6.1')
     compile 'com.google.android.gms:play-services:5.+'
+    compile("org.apache.httpcomponents:httpmime:4.2.6")
+            {
+                exclude group: 'org.apache.httpcomponents'
+            }
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }

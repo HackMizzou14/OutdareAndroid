@@ -6,13 +6,15 @@ import android.os.Parcelable;
 public class Dare implements Parcelable {
     private int id;
     private String title;
+    private String details;
     private String userId;
     private double lat;
     private double lon;
 
-    public Dare(int id, String dare, String userId, double lat, double lon) {
+    public Dare(int id, String title, String details, String userId, double lat, double lon) {
         this.id = id;
-        this.title = dare;
+        this.title = title;
+        this.details = details;
         this.userId = userId;
         this.lat = lat;
         this.lon = lon;
@@ -58,6 +60,15 @@ public class Dare implements Parcelable {
         this.lon = lon;
     }
 
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -67,6 +78,7 @@ public class Dare implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(title);
+        dest.writeString(details);
         dest.writeString(userId);
         dest.writeDouble(lat);
         dest.writeDouble(lon);
@@ -76,12 +88,13 @@ public class Dare implements Parcelable {
         @Override
         public Dare createFromParcel(Parcel source) {
             int id = source.readInt();
-            String dare = source.readString();
-            String challenger = source.readString();
+            String title = source.readString();
+            String details = source.readString();
+            String userId = source.readString();
             double lat = source.readDouble();
-            double longitude = source.readDouble();
+            double lon = source.readDouble();
 
-            return new Dare(id, dare, challenger, lat, longitude);
+            return new Dare(id, title, details, userId, lat, lon);
         }
 
         @Override

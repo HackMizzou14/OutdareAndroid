@@ -61,9 +61,10 @@ public class DaresActivity extends Activity implements GooglePlayServicesClient.
                 Intent intent = new Intent(getApplicationContext(), SubmissionsActivity.class);
 
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(SubmissionsActivity.DARE_KEY, dare);
+                bundle.putParcelable(ODConstants.DARE_KEY, dare);
+                bundle.putString(ODConstants.USER_KEY, currentUser);
 
-                intent.putExtra(SubmissionsActivity.DARE_KEY, bundle);
+                intent.putExtra(ODConstants.BUNDLE_KEY, bundle);
 
                 startActivity(intent);
             }
