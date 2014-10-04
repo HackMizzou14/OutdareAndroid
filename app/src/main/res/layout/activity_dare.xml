@@ -6,6 +6,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@android:color/white"
     android:layout_height="match_parent">
 
     <TextView
@@ -20,10 +21,12 @@
         android:id="@+id/dare_et_dare"
         android:layout_width="match_parent"
         android:inputType="textMultiLine"
-        style="@style/default_edittext"
         android:gravity="top|left"
+        android:background="@drawable/black_border"
         android:lines="10"
         android:layout_marginBottom="10dp"
+        android:padding="5dp"
+        android:hint="I dare you to..."
         android:layout_height="wrap_content" />
 
     <Button

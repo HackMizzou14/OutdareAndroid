@@ -29,6 +29,9 @@
         <activity
             android:name=".dare.DareActivity"
             android:label="@string/app_name"></activity>
+        <activity
+            android:name=".dares.DaresActivity"
+            android:label="@string/app_name"></activity>
     </application>
 
 </manifest>

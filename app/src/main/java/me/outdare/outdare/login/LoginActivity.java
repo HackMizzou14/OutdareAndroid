@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import me.outdare.outdare.R;
 import me.outdare.outdare.dare.DareActivity;
+import me.outdare.outdare.dares.DaresActivity;
 import me.outdare.outdare.register.RegisterActivity;
 import me.outdare.outdare.services.OutdareService;
 import retrofit.Callback;
@@ -70,7 +71,7 @@ public class LoginActivity extends Activity {
         outdareService.login(user, password, new Callback<User>() {
             @Override
             public void success(User user, Response response) {
-                Intent dareIntent = new Intent(getApplicationContext(), DareActivity.class);
+                Intent dareIntent = new Intent(getApplicationContext(), DaresActivity.class);
 
                 Bundle bundle = new Bundle();
                 bundle.putString(DareActivity.USERNAME_KEY, user.getUsername());

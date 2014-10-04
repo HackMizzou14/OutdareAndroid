@@ -46,7 +46,7 @@ public class DareActivity extends Activity implements GooglePlayServicesClient.C
         currUser = inBundle.getString(USERNAME_KEY);
 
 
-        view = getLayoutInflater().inflate(R.layout.dare, null);
+        view = getLayoutInflater().inflate(R.layout.activity_dare, null);
         etDare = (EditText) view.findViewById(R.id.dare_et_dare);
         btnSubmit = (Button) view.findViewById(R.id.dare_btn_submit);
 

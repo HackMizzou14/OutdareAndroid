@@ -1,11 +1,15 @@
 package me.outdare.outdare.services;
 
+import java.util.List;
+
 import me.outdare.outdare.dare.Dare;
 import me.outdare.outdare.login.User;
 import retrofit.Callback;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
+import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.Query;
 
 public interface OutdareService {
     @FormUrlEncoded
@@ -24,9 +28,15 @@ public interface OutdareService {
 
     @FormUrlEncoded
     @POST("/dares/create.php")
-    void createDare(@Field("dare") String dare,
+    void createDare(@Field("activity_dare") String dare,
                     @Field("challenger") String challenger,
-                    @Field("latitude") Double latitude,
-                    @Field("longitude") Double longitude,
+                    @Field("latitude") double latitude,
+                    @Field("longitude") double longitude,
                     Callback<Dare> callback);
+
+    @GET("/dares/")
+    void getDares(@Query("user") String user,
+                  @Query("latitude") double latitude,
+                  @Query("longitude") double longitude,
+                  Callback<List<Dare>> callback);
 }
