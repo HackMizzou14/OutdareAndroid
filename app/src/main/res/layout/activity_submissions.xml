@@ -34,6 +34,20 @@
         android:lines="10"
         android:padding="5dp"
         android:background="@drawable/black_border"
+        android:layout_marginBottom="10dp"
         android:layout_height="wrap_content" />
+
+    <HorizontalScrollView
+        android:id="@+id/submissions_hsv_images"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/submissions_ll_images"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"></LinearLayout>
+
+    </HorizontalScrollView>
 
 </LinearLayout>

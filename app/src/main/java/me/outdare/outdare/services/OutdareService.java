@@ -12,7 +12,6 @@ import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
-import retrofit.mime.TypedFile;
 
 public interface OutdareService {
     @FormUrlEncoded
@@ -42,14 +41,7 @@ public interface OutdareService {
                   Callback<List<Dare>> callback);
 
     @GET("/dares/{id}/submissions/")
-    void getSubmissions(@Path("id") int dareId,
+    void getSubmissions(@Path("id") String dareId,
                         Callback<List<Submission>> callback);
-
-    @FormUrlEncoded
-    @POST("/submissions/create")
-    void createSubmission(@Field("user") String user,
-                          @Field("dare_id") int dareId,
-                          @Field("image") TypedFile avatar,
-                          Callback<User> cb);
 
 }

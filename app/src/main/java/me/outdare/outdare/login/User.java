@@ -1,24 +1,24 @@
 package me.outdare.outdare.login;
 
 public class User {
-    private int id;
+    private String _id;
     private String user;
     private String email;
     private String phoneNumber;
 
-    public User(int id, String user, String email, String phoneNumber) {
-        this.id = id;
+    public User(String id, String user, String email, String phoneNumber) {
+        this._id = id;
         this.user = user;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
 
-    public int getId() {
-        return id;
+    public String getId() {
+        return _id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String id) {
+        this._id = id;
     }
 
     public String getUser() {

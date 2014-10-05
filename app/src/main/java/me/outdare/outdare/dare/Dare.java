@@ -4,15 +4,15 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Dare implements Parcelable {
-    private int id;
+    private String _id;
     private String title;
     private String details;
     private String userId;
     private double lat;
     private double lon;
 
-    public Dare(int id, String title, String details, String userId, double lat, double lon) {
-        this.id = id;
+    public Dare(String id, String title, String details, String userId, double lat, double lon) {
+        this._id = id;
         this.title = title;
         this.details = details;
         this.userId = userId;
@@ -20,12 +20,12 @@ public class Dare implements Parcelable {
         this.lon = lon;
     }
 
-    public int getId() {
-        return id;
+    public String getId() {
+        return _id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String id) {
+        this._id = id;
     }
 
     public String getTitle() {
@@ -76,7 +76,7 @@ public class Dare implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
+        dest.writeString(_id);
         dest.writeString(title);
         dest.writeString(details);
         dest.writeString(userId);
@@ -87,7 +87,7 @@ public class Dare implements Parcelable {
     public static final Creator CREATOR = new Creator<Dare>() {
         @Override
         public Dare createFromParcel(Parcel source) {
-            int id = source.readInt();
+            String id = source.readString();
             String title = source.readString();
             String details = source.readString();
             String userId = source.readString();

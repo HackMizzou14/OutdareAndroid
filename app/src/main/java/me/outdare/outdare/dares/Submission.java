@@ -3,21 +3,21 @@ package me.outdare.outdare.dares;
 import android.graphics.Bitmap;
 
 public class Submission {
-    private int id;
+    private String _id;
     private String userId;
     private Bitmap image;
 
-    public Submission(int id, String userId) {
-        this.id = id;
+    public Submission(String id, String userId) {
+        this._id = id;
         this.userId = userId;
     }
 
-    public int getId() {
-        return id;
+    public String getId() {
+        return _id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String id) {
+        this._id = id;
     }
 
     public String getUserId() {
