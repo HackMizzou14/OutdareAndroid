@@ -80,6 +80,7 @@ public class DareActivity extends Activity implements GooglePlayServicesClient.C
             @Override
             public void success(Dare dare, Response response) {
                 etTitle.setText("");
+                etDetails.setText("");
                 Toast.makeText(getApplicationContext(), "Dare submitted successfully.", Toast.LENGTH_LONG).show();
             }
 

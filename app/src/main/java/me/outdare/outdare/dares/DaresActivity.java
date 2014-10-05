@@ -8,11 +8,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
@@ -30,8 +34,8 @@ import retrofit.client.Response;
 public class DaresActivity extends Activity implements GooglePlayServicesClient.ConnectionCallbacks {
 
     private View view;
-    private ListView lvDares;
-    private DaresAdapter adapter;
+    private GoogleMap map;
+    public List<Dare> dareList;
 
     private OutdareService outdareService;
     private String currentUser;
@@ -48,25 +52,15 @@ public class DaresActivity extends Activity implements GooglePlayServicesClient.
         outdareService = loginAdapter.create(OutdareService.class);
 
         view = getLayoutInflater().inflate(R.layout.activity_dares, null);
-        lvDares = (ListView) view.findViewById(R.id.dares_lv_dares);
 
-        adapter = new DaresAdapter(this, android.R.layout.simple_list_item_1);
-        lvDares.setAdapter(adapter);
+        map = ((MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map)).getMap();
 
-        lvDares.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        map.setMyLocationEnabled(true);
+        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Dare dare = adapter.getItem(position);
-
-                Intent intent = new Intent(getApplicationContext(), SubmissionsActivity.class);
-
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(ODConstants.DARE_KEY, dare);
-                bundle.putString(ODConstants.USER_KEY, currentUser);
-
-                intent.putExtra(ODConstants.BUNDLE_KEY, bundle);
-
-                startActivity(intent);
+            public void onInfoWindowClick(Marker marker) {
+                openDare(marker.getTitle());
             }
         });
 
@@ -76,16 +70,46 @@ public class DaresActivity extends Activity implements GooglePlayServicesClient.
         setContentView(view);
     }
 
+    private void openDare(String title) {
+        // TODO not this
+        Dare selectedDare = null;
+        for (Dare dare : dareList) {
+            if (dare.getTitle().equals(title)) {
+                selectedDare = dare;
+                break;
+            }
+        }
+
+        Intent intent = new Intent(getApplicationContext(), SubmissionsActivity.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(ODConstants.DARE_KEY, selectedDare);
+        bundle.putString(ODConstants.USER_KEY, currentUser);
+
+        intent.putExtra(ODConstants.BUNDLE_KEY, bundle);
+
+        startActivity(intent);
+    }
+
     @Override
     public void onConnected(Bundle bundle) {
-        Location currentLocation = mLocationClient.getLastLocation();
+        final Location currentLocation = mLocationClient.getLastLocation();
         double latitude = currentLocation.getLatitude();
         double longitude = currentLocation.getLongitude();
 
         outdareService.getDares(latitude, longitude, new Callback<List<Dare>>() {
+
             @Override
             public void success(List<Dare> dares, Response response) {
-                adapter.addAll(dares);
+                dareList = dares;
+
+                for (Dare dare : dares) {
+                    Log.e("TAG", "" + dare.getLon());
+                    createMarker(dare);
+                }
+
+                LatLng currLoc = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(currLoc, 10));
             }
 
             @Override
@@ -93,6 +117,14 @@ public class DaresActivity extends Activity implements GooglePlayServicesClient.
                 Log.e("DaresActivity", error.toString());
             }
         });
+    }
+
+    private void createMarker(Dare dare) {
+        LatLng location = new LatLng(dare.getLat(), dare.getLon());
+        map.addMarker(new MarkerOptions()
+                .title(dare.getTitle())
+                .snippet(dare.getDetails())
+                .position(location));
     }
 
     @Override

@@ -36,8 +36,8 @@ public interface OutdareService {
                     Callback<Dare> callback);
 
     @GET("/dares/")
-    void getDares(@Query("lat") double latitude,
-                  @Query("lon") double longitude,
+    void getDares(@Query("lat") double lat,
+                  @Query("lon") double lon,
                   Callback<List<Dare>> callback);
 
     @GET("/dares/{id}/submissions/")
